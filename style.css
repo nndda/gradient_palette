@@ -19,25 +19,48 @@ body {
 
 .tooltip {
     position: absolute;
-    margin-top: -4ch;
+/*     margin-top: -19.5ch; */
+    margin-top: -12em;
+    transition: .1s ease-out;
+    transform: translateY(2ch);
+    opacity: 0;
+/*     margin-top: -10%; */
 /*     bottom: -1ch; */
 }
+.palette-color:hover ~ .tooltip{
+/*     filter: blur(2px); */
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.tooltip span:first-child {
+    font-size: 1.5em
+}
+.tooltip span:last-child {
+    margin-left: .5em;
+    opacity: .85
+}
+
+
 
 .palette {
     background: var(--b2);
     padding: .75em;
-    width: fit-content;
+/*     width: fit-content; */
+    max-width: 600px;
     margin: 1em auto;
 /*     border-radius: 4px; */
     border-radius: .6em;
 /*     border: 2px solid; */
 /*     max-width: 500px; */
-    margin-top: 15%;
+/*     margin-top: 10%; */
+    margin-top: 22vh;
 }
 .palette-color {
 }
 .palette-color > .color {
     display: flex;
+    justify-content: center;
 }
 .palette-color > .color > div {
     cursor: pointer;
@@ -50,10 +73,19 @@ body {
 /*     border: 2px dashed var(--p); */
 }
 
+.palette-color > .color > div{
+    transition: .1s transform ease-in;
+}
+
 .palette-color > .color > div:hover {
+    transform: translateY(-1.5ch);
+/*     outline: 2px solid var(--p); */
 /*     width: 150%; */
 /*     flex-grow: 1; */
 }
+/* .palette-color > .color > div:nth-of-type(even):hover {
+    transform: translateY(1.5ch);
+} */
 
 .palette-color > .color > div:first-child{
     border-radius: .75em 0 0 .75em;
@@ -63,13 +95,15 @@ body {
 }
 
 
-
-
-fieldset {
-    display: flex;
+fieldset{
     margin-top: .5em;
     padding-left: 0;
     border: none;
+}
+
+fieldset.field {
+    display: flex;
+    justify-content: center;
 /*     flex-basis: revert; */
 }
 fieldset > input[type="number"] {
@@ -91,7 +125,37 @@ fieldset > input[type="number"] {
     padding: .3em;
     background: var(--b3);
 }
+.field > label[for="copymenutoggle"] {
+    cursor: pointer;
+    margin-left: .5em;
+    padding: .3em .6em;
+    background:  var(--b3);
+/*     line-height: 1.5em; */
+/*     vertical-align: -1em  !important; */
+}
+.field > label[for=copymenutoggle] > span {
+    vertical-align: .1em
+    
+}
 
+input[type="button"] {
+   cursor: pointer;
+    transition: none;
+}
+input[type="button"]:hover {
+    background: var(--p);
+    color: var(--b3);
+}
+
+fieldset.copymenu {
+    display: block;
+    line-height: 4.5ch;
+    max-width: fit-content;
+    margin: auto;
+}
+fieldset.copymenu > input {
+/*     display: block !important; */
+}
 
 #footer{
     position: absolute;

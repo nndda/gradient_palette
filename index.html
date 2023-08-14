@@ -8,8 +8,10 @@
   <title>gradient_palette</title>
 
   <link rel="stylesheet" href="vendor/normalize/normalize.min.css">
-  <!-- <link rel="stylesheet" href="style.css"> -->
-  <link rel="stylesheet" href="style.min.css">
+  <link rel="stylesheet" href="vendor/bootstrap-icons/font/bootstrap-icons.min.css">
+
+  <link rel="stylesheet" href="style.css">
+  <!-- <link rel="stylesheet" href="style.min.css"> -->
 
   <link rel="stylesheet" href="vendor/coloris/coloris.min.css"/>
   <script src="vendor/coloris/coloris.min.js"></script>
@@ -21,23 +23,70 @@
 <body>
   <div>
     <div class="palette">
-      <div class="tooltip">
-        <span class="color_name"></span>
-      </div>
+
       <div class="palette-color">
         <div class="color">
-          <div style="background:#3BE6F9;" onmouseover="colorTooltip(this)"></div>
-          <div style="background:#34C8D9;" onmouseover="colorTooltip(this)"></div>
-          <div style="background:#2EA9B8;" onmouseover="colorTooltip(this)"></div>
-          <div style="background:#278B98;" onmouseover="colorTooltip(this)"></div>
-          <div style="background:#216C78;" onmouseover="colorTooltip(this)"></div>
+          <div style="background:#2ACBEC;" onmouseover="colorTooltip(this)" onclick="copyCol(this)"></div>
+          <div style="background:#42BAE6;" onmouseover="colorTooltip(this)" onclick="copyCol(this)"></div>
+          <div style="background:#59A9E0;" onmouseover="colorTooltip(this)" onclick="copyCol(this)"></div>
+          <div style="background:#7198DA;" onmouseover="colorTooltip(this)" onclick="copyCol(this)"></div>
+          <div style="background:#8987D5;" onmouseover="colorTooltip(this)" onclick="copyCol(this)"></div>
+          <div style="background:#A076CF;" onmouseover="colorTooltip(this)" onclick="copyCol(this)"></div>
+          <div style="background:#B865C9;" onmouseover="colorTooltip(this)" onclick="copyCol(this)"></div>
+          <div style="background:#CF54C3;" onmouseover="colorTooltip(this)" onclick="copyCol(this)"></div>
+          <div style="background:#E743BD;" onmouseover="colorTooltip(this)" onclick="copyCol(this)"></div>
+          <div style="background:#FE33B8;" onmouseover="colorTooltip(this)" onclick="copyCol(this)"></div>
         </div>
       </div>
+
+      <div class="tooltip">
+        <span class="color_name"></span>
+        <span>
+          <i class="bi bi-files"></i>
+          click to copy
+        </span>
+      </div>
+
       <fieldset class="field">
-        <input type="text" value="#3BE6F9" data-coloris oninput="updateColStart(this,this.parentElement.parentElement.parentElement)">
-        <input type="text" value="#216C78" data-coloris oninput="updateColEnd(this,this.parentElement.parentElement.parentElement)">
-        <input type="number" value="5" min="5" max="16" oninput="updateColNum(this,this.parentElement.parentElement)">
+        <input type="text" value="#13DCF2" data-coloris oninput="updateColStart(this,this.parentElement.parentElement.parentElement)">
+        <input type="text" value="#FF33B8" data-coloris oninput="updateColEnd(this,this.parentElement.parentElement.parentElement)">
+        <input type="number" value="10" min="3" max="25" oninput="updateColNum(this,this.parentElement.parentElement)">
+<!--         <label for="copymenutoggle">
+          <i class="bi bi-files"></i>
+          <span>copy</span>
+        </label>
+        <input class="hidden" type="button" name="copymenutoggle" id="copymenutoggle"> -->
       </fieldset>
+
+      <fieldset class="copymenu">
+        <span>Copy as...</span>
+
+        <br>
+        <i class="bi bi-filetype-css"></i>
+        <input type="button" id="copycss" name="" value="CSS Variables" onclick="copyCSSVar(this)">
+        <!-- <br> -->
+        <input type="text" name="" value="--color_var" placeholder="--color_var" id="copycss_var">
+
+        <br>
+        <i class="bi bi-file-earmark-code"></i>
+        <input type="button" id="arr" name="" value="Array-like Variables" onclick="copyArrVar(this)">
+<!--         <br>
+        <label for="arr_brackets">Bracket : </label>
+        <select id="arr_brackets" name="arr_brackets">
+          <option value="square" selected>[...]</option>
+          <option value="curly">{...}</option>
+          <option value="round">(...)</option>
+          <option value="chevron">a</option>
+        </select>
+        <br>
+        <label for="arr_delim">Delimiter : </label>
+        <select id="arr_delim" name="arr_delim">
+          <option value="comma" selected>comma ","</option>
+          <option value="space">space " "</option>
+        </select> -->
+
+      </fieldset>
+
     </div>
   </div>
   <div id="footer">
@@ -46,7 +95,8 @@
     </span>
     <span>
       <a href="https://github.com/nndda/gradient_palette" target="_blank" rel="noopener noreferrer nofollow" >
-        view source code
+        source code
+        <i class="bi bi-github"></i>
       </a>
     </span>
   </div>

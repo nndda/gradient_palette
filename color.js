@@ -55,14 +55,19 @@ function createGradient(length, col_start, col_end) {
 
 
 function colorTooltip(target) {
-  var tooltip = target.parentElement.parentElement.previousElementSibling.getElementsByClassName("color_name")[0];
+  var tooltip = target.parentElement.parentElement.nextElementSibling.getElementsByClassName("color_name")[0];
   var value = rgbfun2Hex(target.style.backgroundColor);
   tooltip.textContent = value;
-}
+  // target.parentElement.parentElement.nextElementSibling.classList.remove("hidden");
+};
+
+// function colorTooltipClose(target) {
+//   target.nextElementSibling.classList.add("hidden");
+// };
 
 function rgbfun2Hex(rgb) {
-  return toHex((rgb.toString().replace(/rgb/g, "").replace(/\(/g, "").replace(/\)/g, "").replace(/,/g, "")).split(" "))
-}
+    return toHex((rgb.toString().replace(/rgb/g, "").replace(/\(/g, "").replace(/\)/g, "").replace(/,/g, "")).split(" "))
+};
 
 function updateColStart(source) {
   var col_end = source.parentElement.nextElementSibling.getElementsByTagName("input")[0].value;
@@ -79,12 +84,14 @@ function updateColEnd(source) {
 };
 
 
-function updateColNum(source) {
+function updateColNum(source,target) {
 
-  if (source.value >= 5 && source.value <= 25) {
+  if (source.value >= 3 && source.value <= 25) {
     var col_start = source.previousElementSibling.previousElementSibling.getElementsByTagName("input")[0].value;
     var col_end = source.previousElementSibling.getElementsByTagName("input")[0].value;
-    var colors_elem = source.parentElement.previousElementSibling.getElementsByClassName("color")[0];
+    // var colors_elem = source.parentElement.previousElementSibling.getElementsByClassName("color")[0];
+    // var value_changed = source.value - colors_elem.children.length;
+    var colors_elem = target.getElementsByClassName("color")[0];
     var value_changed = source.value - colors_elem.children.length;
 
     console.log(value_changed);
@@ -115,6 +122,55 @@ function updateColor(value, target) {
   }
 };
 
-function updateLength(value, target) {
+// function updateLength(value, target) {
 
+// };
+
+function copiedNotif(target) {
+  // body...
+}
+
+function copyString(string) {
+navigator.clipboard.writeText(string).then(() => {
+  console.log('copied');
+},() => {
+  console.error('failed');
+});
+};
+
+function copyCol(target) {
+  copyString(rgbfun2Hex(target.style.backgroundColor));
+};
+
+function copyArrVar(target) {
+  var arr_col = [];
+  var arr_elem = target.parentElement.parentElement.getElementsByClassName("color")[0].children;
+
+  // for (const elem of arr_elem) {
+  for (var i = 0; i < arr_elem.length; i++) {
+    arr_col.push(
+      "\"" + rgbfun2Hex(arr_elem[i].style.backgroundColor) + "\""
+      )
+  }
+  copyString("["+arr_col+"]");
+};
+
+
+function copyCSSVar(target) {
+  var output = "";
+  var arr_col = [];
+  var arr_elem = target.parentElement.parentElement.getElementsByClassName("color")[0].children;
+  var var_name = target.nextElementSibling.value;
+
+  // for (const elem of arr_elem) {
+  for (var i = 0; i < arr_elem.length; i++) {
+    arr_col.push(rgbfun2Hex(arr_elem[i].style.backgroundColor));
+  }
+
+  for (var i = 0; i < arr_col.length; i++) {
+    output += (
+      var_name + "_" + i + ": " + arr_col[i] + ";\n"
+      );
+  }
+  copyString(output);
 };
