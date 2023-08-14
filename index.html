@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>gradient_palette</title>
+
+  <link rel="stylesheet" href="vendor/normalize/normalize.min.css">
+  <!-- <link rel="stylesheet" href="style.css"> -->
+  <link rel="stylesheet" href="style.min.css">
+
+  <link rel="stylesheet" href="vendor/coloris/coloris.min.css"/>
+  <script src="vendor/coloris/coloris.min.js"></script>
+
+  <!-- <script src="color.js"></script> -->
+  <script src="color.min.js"></script>
+</head>
+
+<body>
+  <div>
+    <div class="palette">
+      <div class="tooltip">
+        <span class="color_name"></span>
+      </div>
+      <div class="palette-color">
+        <div class="color">
+          <div style="background:#3BE6F9;" onmouseover="colorTooltip(this)"></div>
+          <div style="background:#34C8D9;" onmouseover="colorTooltip(this)"></div>
+          <div style="background:#2EA9B8;" onmouseover="colorTooltip(this)"></div>
+          <div style="background:#278B98;" onmouseover="colorTooltip(this)"></div>
+          <div style="background:#216C78;" onmouseover="colorTooltip(this)"></div>
+        </div>
+      </div>
+      <fieldset class="field">
+        <input type="text" value="#3BE6F9" data-coloris oninput="updateColStart(this,this.parentElement.parentElement.parentElement)">
+        <input type="text" value="#216C78" data-coloris oninput="updateColEnd(this,this.parentElement.parentElement.parentElement)">
+        <input type="number" value="5" min="5" max="16" oninput="updateColNum(this,this.parentElement.parentElement)">
+      </fieldset>
+    </div>
+  </div>
+  <div id="footer">
+    <span>
+      made by nnda
+    </span>
+    <span>
+      <a href="https://github.com/nndda/gradient_palette" target="_blank" rel="noopener noreferrer nofollow" >
+        view source code
+      </a>
+    </span>
+  </div>
+</body>
+
+</html>
