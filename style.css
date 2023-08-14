@@ -1,0 +1,115 @@
+:root{
+    --b: #000;
+    --b2: #131313;
+    --b3: #252525;
+    --p: #eee;
+    font-family: monospace;
+}
+
+.clr-dark{
+    background: var(--b2) !important;
+}
+body {
+    background: var(--b);
+    color: var(--p);
+}
+.hidden {
+    display: none !important;
+}
+
+.tooltip {
+    position: absolute;
+    margin-top: -4ch;
+/*     bottom: -1ch; */
+}
+
+.palette {
+    background: var(--b2);
+    padding: .75em;
+    width: fit-content;
+    margin: 1em auto;
+/*     border-radius: 4px; */
+    border-radius: .6em;
+/*     border: 2px solid; */
+/*     max-width: 500px; */
+    margin-top: 15%;
+}
+.palette-color {
+}
+.palette-color > .color {
+    display: flex;
+}
+.palette-color > .color > div {
+    cursor: pointer;
+    width: 80px;
+    height: 120px;
+/*     margin: 0 .2em;  */
+/*     flex-shrink: 1;
+    transition: .8s ease; */
+        
+/*     border: 2px dashed var(--p); */
+}
+
+.palette-color > .color > div:hover {
+/*     width: 150%; */
+/*     flex-grow: 1; */
+}
+
+.palette-color > .color > div:first-child{
+    border-radius: .75em 0 0 .75em;
+}
+.palette-color > .color > div:last-child{
+    border-radius: 0 .75em .75em 0;
+}
+
+
+
+
+fieldset {
+    display: flex;
+    margin-top: .5em;
+    padding-left: 0;
+    border: none;
+/*     flex-basis: revert; */
+}
+fieldset > input[type="number"] {
+/*     flex-shrink: 1; */
+/*     flex-grow: 0; */
+    max-width: 3em;
+}
+/* .field > input{ */
+.field > .clr-field{
+/*     max-width: 6em; */
+    margin-right: .5em
+}
+.field > .clr-field > input {
+    max-width: 7em;
+}
+.palette fieldset input{
+    border: none;
+    color: var(--p);
+    padding: .3em;
+    background: var(--b3);
+}
+
+
+#footer{
+    position: absolute;
+    display: flex;
+/*     flex-grow: ; */
+    bottom: 0;
+    width: calc(100% - .75em * 2);
+    padding: .75em;
+    background: var(--b2);
+    color: var(--p);
+}
+
+#footer > span:last-child {
+    flex-grow: 1;
+    text-align: right;
+/*     background: red */
+}
+#footer a {
+    color: var(--p);
+    text-decoration: none;
+}
