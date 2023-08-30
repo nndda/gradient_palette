@@ -10,13 +10,11 @@
   <link rel="stylesheet" href="vendor/normalize/normalize.min.css">
   <link rel="stylesheet" href="vendor/bootstrap-icons/font/bootstrap-icons.min.css">
 
-  <link rel="stylesheet" href="style.css">
-  <!-- <link rel="stylesheet" href="style.min.css"> -->
+  <link rel="stylesheet" href="style.min.css">
 
   <link rel="stylesheet" href="vendor/coloris/coloris.min.css"/>
   <script src="vendor/coloris/coloris.min.js"></script>
 
-  <!-- <script src="color.js"></script> -->
   <script src="color.min.js"></script>
 </head>
 
@@ -39,23 +37,10 @@
         </div>
       </div>
 
-      <div class="tooltip">
-        <span class="color_name"></span>
-        <span>
-          <i class="bi bi-files"></i>
-          click to copy
-        </span>
-      </div>
-
       <fieldset class="field">
-        <input type="text" value="#13DCF2" data-coloris oninput="updateColStart(this,this.parentElement.parentElement.parentElement)">
-        <input type="text" value="#FF33B8" data-coloris oninput="updateColEnd(this,this.parentElement.parentElement.parentElement)">
-        <input type="number" value="10" min="3" max="25" oninput="updateColNum(this,this.parentElement.parentElement)">
-<!--         <label for="copymenutoggle">
-          <i class="bi bi-files"></i>
-          <span>copy</span>
-        </label>
-        <input class="hidden" type="button" name="copymenutoggle" id="copymenutoggle"> -->
+        <input class="col_start" type="text" value="#13DCF2" data-coloris oninput="updateColor();">
+        <input class="col_end" type="text" value="#FF33B8" data-coloris oninput="updateColor();">
+        <input class="col_length" type="number" value="10" min="3" max="25" oninput="updateColNum()">
       </fieldset>
 
       <fieldset class="copymenu">
@@ -64,31 +49,24 @@
         <br>
         <i class="bi bi-filetype-css"></i>
         <input type="button" id="copycss" name="" value="CSS Variables" onclick="copyCSSVar(this)">
-        <!-- <br> -->
         <input type="text" name="" value="--color_var" placeholder="--color_var" id="copycss_var">
 
         <br>
         <i class="bi bi-file-earmark-code"></i>
         <input type="button" id="arr" name="" value="Array-like Variables" onclick="copyArrVar(this)">
-<!--         <br>
-        <label for="arr_brackets">Bracket : </label>
-        <select id="arr_brackets" name="arr_brackets">
-          <option value="square" selected>[...]</option>
-          <option value="curly">{...}</option>
-          <option value="round">(...)</option>
-          <option value="chevron">a</option>
-        </select>
-        <br>
-        <label for="arr_delim">Delimiter : </label>
-        <select id="arr_delim" name="arr_delim">
-          <option value="comma" selected>comma ","</option>
-          <option value="space">space " "</option>
-        </select> -->
-
+        <div class="copy_notif">&nbsp;</div>
       </fieldset>
 
+      <div class="tooltip">
+        <span class="color_name"></span>
+        <span class="color_copy">
+          <i class="bi bi-files"></i>
+          click to copy
+        </span>
+      </div>
     </div>
   </div>
+
   <div id="footer">
     <span>
       made by nnda
@@ -100,6 +78,13 @@
       </a>
     </span>
   </div>
-</body>
 
+  <script type="text/javascript">
+    colors_elem = document.getElementsByClassName("color")[0];
+    col_start = document.getElementsByClassName("col_start")[0];
+    col_end = document.getElementsByClassName("col_end")[0];
+    col_length = document.getElementsByClassName("col_length")[0];
+    copy_notif = document.getElementsByClassName("copy_notif")[0];
+  </script>
+</body>
 </html>

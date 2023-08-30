@@ -3,9 +3,6 @@ Coloris({
   alpha: false
 });
 
-var colors = [];
-
-
 const toHex = function(rgb) {
   return ("#" +
     parseInt(rgb[0]).toString(16).padStart(2, "0") +
@@ -22,79 +19,57 @@ const toRGB = function(hex) {
   ];
 };
 
-function createGradient(length, col_start, col_end) {
-  var start = toRGB(col_start);
-  var end = toRGB(col_end);
+var colors = [];
+var colors_elem;
+var col_start;
+var col_end;
+var col_length = 10;
+
+function createGradient(length_ovrr) {
+  var end = toRGB(col_start.value);
+  var start = toRGB(col_end.value);
+  var length = col_length.value;
   var diff = [
     end[0] - start[0],
     end[1] - start[1],
     end[2] - start[2]
   ];
 
-
   var output = [];
-
   var a = 0.0;
-
 
   for (var i = 0; i < length; i++) {
     var c = [0, 0, 0];
     a += (1.0 / length);
+    if (a > 1.0) { a = 1.0 };
 
-    c[0] = start[0] * a + (1 - a) * end[0];
-    c[1] = start[1] * a + (1 - a) * end[1];
-    c[2] = start[2] * a + (1 - a) * end[2];
+    c[0] = start[0] * a + (1.0 - a) * end[0];
+    c[1] = start[1] * a + (1.0 - a) * end[1];
+    c[2] = start[2] * a + (1.0 - a) * end[2];
 
-    output.push(
-      toHex(c)
-    );
+    output.push( toHex(c) );
   }
 
   return output;
 }
 
-
 function colorTooltip(target) {
-  var tooltip = target.parentElement.parentElement.nextElementSibling.getElementsByClassName("color_name")[0];
+  var tooltip = target.parentElement.parentElement.parentElement.getElementsByClassName("color_name")[0];
   var value = rgbfun2Hex(target.style.backgroundColor);
-  tooltip.textContent = value;
-  // target.parentElement.parentElement.nextElementSibling.classList.remove("hidden");
-};
+    tooltip.textContent = value;
+  };
 
-// function colorTooltipClose(target) {
-//   target.nextElementSibling.classList.add("hidden");
-// };
 
 function rgbfun2Hex(rgb) {
     return toHex((rgb.toString().replace(/rgb/g, "").replace(/\(/g, "").replace(/\)/g, "").replace(/,/g, "")).split(" "))
 };
 
-function updateColStart(source) {
-  var col_end = source.parentElement.nextElementSibling.getElementsByTagName("input")[0].value;
-  var length = source.parentElement.nextElementSibling.nextElementSibling.value;
-  updateColor(
-    createGradient(length, col_end, source.value), source.parentElement.parentElement.parentElement);
-};
+function updateColNum() {
 
-function updateColEnd(source) {
-  var col_start = source.parentElement.previousElementSibling.getElementsByTagName("input")[0].value;
-  var length = source.parentElement.nextElementSibling.value;
-  updateColor(
-    createGradient(length, source.value, col_start), source.parentElement.parentElement.parentElement);
-};
-
-
-function updateColNum(source,target) {
-
-  if (source.value >= 3 && source.value <= 25) {
-    var col_start = source.previousElementSibling.previousElementSibling.getElementsByTagName("input")[0].value;
-    var col_end = source.previousElementSibling.getElementsByTagName("input")[0].value;
-    // var colors_elem = source.parentElement.previousElementSibling.getElementsByClassName("color")[0];
-    // var value_changed = source.value - colors_elem.children.length;
-    var colors_elem = target.getElementsByClassName("color")[0];
-    var value_changed = source.value - colors_elem.children.length;
-
+  if (col_length.value >= 3 && col_length.value <= 25) {
+    var value_changed = col_length.value - colors_elem.children.length;
     console.log(value_changed);
+
     if (value_changed > 0) {
 
       for (var i = 0; i < value_changed; i++) {
@@ -103,39 +78,36 @@ function updateColNum(source,target) {
 
     } else {
 
-      for (var i = 0; i < Math.abs(value_changed); i++) {
-        colors_elem.removeChild(colors_elem.lastChild);
+      for (var i = 0; i > value_changed; i--) {
+        colors_elem.removeChild(colors_elem.lastElementChild);
       }
 
     }
-
-    updateColor(
-      createGradient(source.value, col_end, col_start), source.parentElement.parentElement);
+    updateColor();
   }
 };
 
-
-function updateColor(value, target) {
-  var colors_elem = target.getElementsByClassName("color")[0].children;
-  for (var i = 0; i < colors_elem.length; i++) {
-    colors_elem[i].style.backgroundColor = value[i];
+function updateColor() {
+  colors = createGradient();
+  for (var i = 0; i < colors_elem.children.length; i++) {
+    colors_elem.children[i].style.backgroundColor = colors[i];
   }
 };
 
-// function updateLength(value, target) {
-
-// };
-
-function copiedNotif(target) {
-  // body...
-}
+var copy_notif;
 
 function copyString(string) {
-navigator.clipboard.writeText(string).then(() => {
-  console.log('copied');
-},() => {
-  console.error('failed');
-});
+  copy_notif.textContent = "\u00A0\u00A0Copying...";
+  copy_notif.classList.remove("copy_notif_show");
+  navigator.clipboard.writeText(string).then(() => {
+    copy_notif.classList.add("copy_notif_show");
+    console.log('copied');
+    copy_notif.textContent = "\u00A0\u00A0Copied to clipboard!";
+  },() => {
+    copy_notif.classList.add("copy_notif_show_failed");
+    console.error('failed');
+    copy_notif.textContent = "\u00A0\u00A0Failed to copy";
+  });
 };
 
 function copyCol(target) {
@@ -144,10 +116,9 @@ function copyCol(target) {
 
 function copyArrVar(target) {
   var arr_col = [];
-  var arr_elem = target.parentElement.parentElement.getElementsByClassName("color")[0].children;
+  var arr_elem = colors_elem.children;
 
-  // for (const elem of arr_elem) {
-  for (var i = 0; i < arr_elem.length; i++) {
+    for (var i = 0; i < arr_elem.length; i++) {
     arr_col.push(
       "\"" + rgbfun2Hex(arr_elem[i].style.backgroundColor) + "\""
       )
@@ -155,15 +126,13 @@ function copyArrVar(target) {
   copyString("["+arr_col+"]");
 };
 
-
 function copyCSSVar(target) {
   var output = "";
   var arr_col = [];
-  var arr_elem = target.parentElement.parentElement.getElementsByClassName("color")[0].children;
+  var arr_elem = colors_elem.children;
   var var_name = target.nextElementSibling.value;
 
-  // for (const elem of arr_elem) {
-  for (var i = 0; i < arr_elem.length; i++) {
+    for (var i = 0; i < arr_elem.length; i++) {
     arr_col.push(rgbfun2Hex(arr_elem[i].style.backgroundColor));
   }
 
