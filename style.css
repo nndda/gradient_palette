@@ -18,17 +18,21 @@ body {
 }
 
 .tooltip {
+    color: #fff;
     position: absolute;
-/*     margin-top: -19.5ch; */
-    margin-top: -12em;
+    margin-top: -27.5em;
     transition: .1s ease-out;
     transform: translateY(2ch);
+/* }
+.color_copy, .color_name { */
     opacity: 0;
-/*     margin-top: -10%; */
-/*     bottom: -1ch; */
 }
+
+input.col_end, input.col_start {
+    text-transform: uppercase
+}
+
 .palette-color:hover ~ .tooltip{
-/*     filter: blur(2px); */
     transform: translateY(0);
     opacity: 1;
 }
@@ -38,10 +42,44 @@ body {
 }
 .tooltip span:last-child {
     margin-left: .5em;
-    opacity: .85
+/*     opacity: .85 */
+    color: #bbb
+}
+
+.copy_notif {
+    background: #0000;
+    color: var(--p);
+}
+
+.copy_notif_show {
+    animation: copied .5s ease-in forwards;
+}
+.copy_notif_show_failed {
+    animation: copied_fail .5s ease-in forwards;
 }
 
 
+@keyframes copied {
+    from {
+        background: var(--p);
+        color: var(--b3);
+    }
+    to {
+        background: #0000;
+        color: var(--p);
+    }
+}
+
+@keyframes copied_fail {
+    from {
+        background: red;
+        color: var(--b3);
+    }
+    to {
+        background: #0000;
+        color: var(--p);
+    }
+}
 
 .palette {
     background: var(--b2);
